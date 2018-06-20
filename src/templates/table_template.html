@@ -1,0 +1,20 @@
+<table cellspacing="0">
+	<tbody>
+		<tr>
+			<th class="table-results">electorate</th>
+			<th class="table-results">prediction</th>
+			<th class="table-results">incumbent</th>
+			<th class="table-results">margin 2016</th>
+			<th class="table-results">votes counted (%)</th>
+		</tr>
+		{{#each polity}}
+		<tr>
+			<td class="table-results">{{electorate}}</td>
+			<td class="table-results"><span class="{{shortify(prediction)}}">{{prediction}}</span></td>
+			<td class="table-results"><span class="{{shortify(incumbent_party)}}">{{incumbent_party}}</span></td>
+			<td class="table-results">{{margin_2016}}</td>
+			<td class="table-results">0%</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>

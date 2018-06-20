@@ -1,0 +1,44 @@
+.forecast_block {
+	width: 350px;
+	display: inline-block;
+	font-weight: 300;
+	font-size: 20px;
+    font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    margin-bottom: 20px;
+}
+
+.prediction_block {
+	width: calc(50% - 10px);
+	float: left;
+	display: none;
+}
+
+.incumbent_block {
+	width: calc(50% - 10px);
+	float: left;
+}
+
+.forecast_block span {
+	padding: 5px;
+	color: white;
+	font-weight: 800;
+}
+
+.forecast_block span.alp {
+	background-color: #b51800;
+}
+
+.forecast_block span.centrealliance {
+	background-color: #e6711b;
+}
+
+.forecast_block span.unknown {
+	background-color: #959595;
+}
+
+.forecast_block_label {
+	color: #6b6b6b;
+    font-weight: 300;
+    font-size: 20px;
+}
+

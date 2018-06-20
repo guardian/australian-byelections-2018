@@ -1,0 +1,13 @@
+
+<div class="seatstack">
+
+    <ul class="seatstack__bar">
+        {{#each partyData}}
+            <li data-partyname="{{this.short}}" style="width: {{electionSelection(this.seats)}}%">  
+                <span>{{seatDisplay(this.seats)}}</span> 
+            </li>
+        {{/each}}
+    </ul> 
+    
+</div>
+

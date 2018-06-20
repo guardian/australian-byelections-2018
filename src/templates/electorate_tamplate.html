@@ -1,0 +1,87 @@
+<div>
+
+	{{#each polity}}
+
+	<div class="le-table">
+
+		<div class="line"></div>
+
+		<h2>{{electorate}}</h2>
+
+		<div class="map_container">
+
+			<div class="map_box" style="background-image:url({{map}})"></div>
+
+		</div>
+
+		<div class="le-table-wrapper">
+
+			<div class="column_wrapper">
+
+				<div class="forecast_block">
+
+					<div class="prediction_block">
+
+						<div class="forecast_block_label">Prediction</div>
+
+						<span class="{{shortify(prediction)}}">{{prediction}}</span>
+
+					</div>
+
+					<div class="incumbent_block">
+
+						<div class="forecast_block_label">Incumbent</div>
+
+						<span class="{{shortify(incumbent_party)}}">{{incumbent_party}}</span>
+						
+					</div>
+					
+				</div>
+
+				<h3>Background</h3>
+
+				<p>{{long_description}}</p>
+
+				<div class="electoral_candidate_table">
+
+					<h3>Candidates</h3>
+
+					<div class="candidates_table">
+
+						<table cellspacing="0">
+							<tbody>
+								<tr>
+									<th class="table-results"></th>
+									<th class="table-results">candidate</th>
+									<th class="table-results">party</th>
+									<th class="table-results{{classify()}}">votes</th>
+									<th class="table-results{{classify()}}">%</th>
+								</tr>
+								{{#each candidates}}
+								<tr>
+									<td class="table-results">{{#if bio}}<div class="infocircle" on-click="['info', @key, electorate]"></div>{{/if}}</td>
+									<td class="table-results">{{candidate}}</td>
+									<td class="table-results"><span class="{{shortify(party)}}">{{party}}</span></td>
+									<td class="table-results{{classify()}}"></td>
+									<td class="table-results{{classify()}}"></td>
+								</tr>
+								<tr>
+									<td id="table_{{electorate}}_{{@key}}" colspan="5" class="table-panel hide">{{bio}}</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+
+		</div>
+
+	</div>
+
+	{{/each}}
+
+</div>
