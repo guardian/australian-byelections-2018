@@ -50,7 +50,7 @@ export class election {
 		  	data: { 
 		  		polity: self.data,
 				shortify: function(party) {
-					return party.replace(/\s/g, "").toLowerCase()
+					return party.replace(/[ .,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
 				}
 		  	}
 		  });
@@ -78,7 +78,7 @@ export class election {
 				data: { 
 					polity: self.data,
 					shortify: function(party) {
-						return party.replace(/\s/g, "").toLowerCase()
+						return party.replace(/[ .,'\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
 					},
 					classify: function() {
 						return (self.status === 'TRUE') ? '' : ' hide' ;

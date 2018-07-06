@@ -65,9 +65,11 @@
 									<td class="table-results{{classify()}}"></td>
 									<td class="table-results{{classify()}}"></td>
 								</tr>
+								{{#if bio}}
 								<tr>
 									<td id="table_{{electorate}}_{{@key}}" colspan="5" class="table-panel hide">{{bio}}</td>
 								</tr>
+								{{/if}}
 								{{/each}}
 							</tbody>
 						</table>
