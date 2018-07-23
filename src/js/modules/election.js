@@ -3,6 +3,8 @@ import electorate_tamplate from '../../templates/electorate_tamplate.html'
 import Ractive from 'ractive'
 import xr from 'xr';
 import { Seatstack } from '../modules/seatstack'
+import moment from 'moment'
+import share from '../modules/share'
 Ractive.DEBUG = false;
 
 export class election {
@@ -25,16 +27,53 @@ export class election {
 
 		this.results = googledoc.national
 
+		//this.status = 'TRUE' // TESTING
+
+		this.pathfinder()
+
+
+	}
+
+	pathfinder() {
+
 		if (this.status === 'FALSE') {
 
 			this.ractivateElectorates()
 
 		} else {
 
-			this.ractivateTable()
+			this.fetchDataAndRender()
+
+			window.setInterval(() => this.fetchDataAndRender(), 20000);
 
 		}
 
+		this.social()
+
+	}
+
+    fetchDataAndRender() {
+
+    	var self = this
+
+        xr.get('https://interactive.guim.co.uk/docsdata/15NtI7ouvvNBQeYh4fzBgmsPykYVs1q3LMJ-c3V_Fm-A.json').then((resp) => {
+
+           // console.log(resp.data);
+
+            self.recombinator()
+
+        });
+    }
+
+	recombinator() {
+
+		var self = this
+
+		this.updated()
+
+		// Combine the vote count data with the Google doc data
+		this.ractivateTable()
+		
 	}
 
 	ractivateTable() {
@@ -42,19 +81,6 @@ export class election {
 		var self = this
 
 		document.getElementById("electoral_overview").style.display = 'block';
-
-		this.renderTable = function () {
-		  var ractive = new Ractive({
-		    target: "#election_results_table",
-		    template: table_template,
-		  	data: { 
-		  		polity: self.data,
-				shortify: function(party) {
-					return party.replace(/[ .,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
-				}
-		  	}
-		  });
-		};
 
 		this.renderTable();
 
@@ -69,33 +95,6 @@ export class election {
 	ractivateElectorates() {
 
 		var self = this
-
-		this.renderElectorates = function () {
-
-			var ractive = new Ractive({
-				target: "#electorate_container",
-				template: electorate_tamplate,
-				data: { 
-					polity: self.data,
-					shortify: function(party) {
-						return party.replace(/[ .,'\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
-					},
-					classify: function() {
-						return (self.status === 'TRUE') ? '' : ' hide' ;
-					}
-				}
-			});
-
-			ractive.on( 'info', function ( context, key, electorate ) {
-
-				var candidate = document.querySelector("#table_" + electorate + '_' + key) 
-
-				candidate.classList.toggle("hide");
-
-			});
-
-
-		};
 
 		this.renderElectorates();
 
@@ -112,6 +111,75 @@ export class election {
 		}
 
 	}
+
+	renderTable() {
+
+		var self = this
+
+		var ractive = new Ractive({
+			target: "#election_results_table",
+			template: table_template,
+			data: { 
+				polity: self.data,
+				shortify: function(party) {
+					return party.replace(/[ .,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
+				}
+			}
+		});
+	}
+
+	renderElectorates() {
+
+		var self = this
+
+		var ractive = new Ractive({
+			target: "#electorate_container",
+			template: electorate_tamplate,
+			data: { 
+				polity: self.data,
+				shortify: function(party) {
+					return party.replace(/[ .,'\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
+				},
+				classify: function() {
+					return (self.status === 'TRUE') ? '' : ' hide' ;
+				}
+			}
+		});
+
+		ractive.on( 'info', function ( context, key, electorate ) {
+
+			var candidate = document.querySelector("#table_" + electorate + '_' + key) 
+
+			candidate.classList.toggle("hide");
+
+		});
+
+	}
+
+    updated() {
+
+        //var timestampFormat = d3.time.format("%A %B %d, %H:%M AEST");
+        document.querySelector('#timeStamp').innerHTML = 'Updated ' + moment().format("hh:mm A")
+
+    }
+
+    social() {
+
+    	var self = this
+
+		let sharegeneral = share("Super Saturday: Australian byelection guide", self.getShareUrl(), '', '', '#AUSPOL');
+
+		let social = document.getElementsByClassName("interactive-share")
+
+		for (let i = 0; i < social.length; i++) {
+
+			let platform = social[i].getAttribute('data-network');
+
+			social[i].addEventListener('click',() => sharegeneral(platform));
+
+		}
+
+    }
 
 	getShareUrl() { 
 

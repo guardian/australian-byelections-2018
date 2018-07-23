@@ -45,9 +45,11 @@ $partyColors: (
 [data-partyname='clp'] { background-color: #005689; color: #005689; }
 [data-partyname='nat'] { background-color: #197caa; color: #197caa; }
 [data-partyname='nxt'] { background-color: #e6711b; color: #e6711b; }
+[data-partyname='ca'] { background-color: #e6711b; color: #e6711b; }
 [data-partyname='xen'] { background-color: #e6711b; color: #e6711b; }
 [data-partyname='other'] { background-color: #b3b3b3; color: #b3b3b3; }
 [data-partyname='onp'] { background-color: #ff9b0b; color: #ff9b0b; }
+[data-partyname='phon'] { background-color: #6e191d; color: #6e191d; }
 
 $arrowColorOverrides: (
     ld:  #ff920d,
@@ -443,6 +445,10 @@ $seatstack-list-lineheight: 24px;
                 float: left;
             }
 
+            &[data-partyname='ca'] {
+                float: left;
+            }
+
             &[data-partyname='nxt'] {
                 float: left;
             }
@@ -458,6 +464,11 @@ $seatstack-list-lineheight: 24px;
             &[data-partyname='onp'] {
                 float: right;
             }
+
+            &[data-partyname='phon'] {
+                float: right;
+            }
+
 
             &[data-partyname='kap'] {
                 float: right;

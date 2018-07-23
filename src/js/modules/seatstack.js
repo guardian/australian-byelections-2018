@@ -74,7 +74,7 @@ export class Seatstack {
 
       } else {
 
-        console.log("This party needs to be added: " + self.categories[i])
+        //console.log("This party needs to be added: " + self.categories[i])
 
       }
 
@@ -113,7 +113,7 @@ export class Seatstack {
 
     var self = this
 
-    console.log(self.partyData)
+    //console.log(self.partyData)
 
     this.renderChart = function () {
       var ractive = new Ractive({
