@@ -69,6 +69,7 @@ export class election {
 
 		var self = this
 
+		// Update the timestamp on the page
 		this.updated()
 
 		// Combine the vote count data with the Google doc data
@@ -167,7 +168,7 @@ export class election {
 
     	var self = this
 
-		let sharegeneral = share("Super Saturday: Australian byelection guide", self.getShareUrl(), '', '', '#AUSPOL');
+		let sharegeneral = share("Super Saturday: Australian byelection guide", self.getShareUrl(), 'https://media.guim.co.uk/03347e815d0d46f0aa7c8d27da41dc98e0a46d39/0_34_2303_1382/2303.jpg', '', '#AUSPOL');
 
 		let social = document.getElementsByClassName("interactive-share")
 
