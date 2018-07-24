@@ -62,8 +62,8 @@
 									<td class="table-results">{{#if bio}}<div class="infocircle" on-click="['info', @key, electorate]"></div>{{/if}}</td>
 									<td class="table-results">{{candidate}}</td>
 									<td class="table-results"><span class="{{shortify(party)}}">{{party}}</span></td>
-									<td class="table-results{{classify()}}"></td>
-									<td class="table-results{{classify()}}"></td>
+									<td class="table-results{{classify()}}">{{votes}}</td>
+									<td class="table-results{{classify()}}">{{percentage}}</td>
 								</tr>
 								{{#if bio}}
 								<tr id="table_{{electorate}}_{{@key}}" class="hide">

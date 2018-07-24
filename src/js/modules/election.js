@@ -17,20 +17,28 @@ export class election {
 
 		this.status = googledoc.settings[0].counting
 
+		this.state = []
+
 		this.data.forEach(function(item, index) {
 
-			// Order the candidates. Most votes first
+			let candidates = googledoc[item.electorate]
 
-			item.candidates = googledoc[item.electorate]
+			for (var i = 0; i < candidates.length; i++) {
+				candidates[i].votes = ''
+				candidates[i].percentage = ''
+			}
+
+			item.counted = ''
+			item.candidates = candidates
+			item.timestamp = 0
 
 		});
 
 		this.results = googledoc.national
 
-		// this.status = 'TRUE' // TESTING
+		//this.status = 'TRUE' // TESTING
 
 		this.pathfinder()
-
 
 	}
 
@@ -38,13 +46,17 @@ export class election {
 
 		if (this.status === 'FALSE') {
 
+			this.renderElectorates();
+
 			this.ractivateElectorates()
 
 		} else {
 
-			this.fetchDataAndRender()
+			this.ractivateTable()
 
-			window.setInterval(() => this.fetchDataAndRender(), 20000);
+			this.fetchFeedUpdateInfo()
+
+			window.setInterval(() => this.fetchFeedUpdateInfo(), 60000);
 
 		}
 
@@ -52,15 +64,18 @@ export class election {
 
 	}
 
-    fetchDataAndRender() {
+    fetchFeedUpdateInfo() {
 
     	var self = this
 
-        xr.get('https://interactive.guim.co.uk/docsdata/15NtI7ouvvNBQeYh4fzBgmsPykYVs1q3LMJ-c3V_Fm-A.json').then((resp) => {
+        xr.get('https://interactive.guim.co.uk/2018/07/aus-byelections/recentResults.json').then((resp) => {
 
-           // console.log(resp.data);
+           	if (resp.status === 200) {
 
-            self.recombinator()
+           		self.state = resp.data;
+
+           		self.recombinator()
+           	}
 
         });
     }
@@ -69,13 +84,127 @@ export class election {
 
 		var self = this
 
-		// Update the timestamp on the page
-		this.updated()
+		this.currentPosition = 0
 
-		// Combine the vote count data with the Google doc data
-		this.ractivateTable()
+		this.extremePosition = self.data.length - 1		
+
+		this.processFeed()
 		
 	}
+
+	processFeed() {
+
+		var self = this
+
+		var eid = self.data[self.currentPosition].eid
+
+		var last_updated = self.data[self.currentPosition].timestamp
+
+		var feed_timestamp = parseInt(self.state[eid][0])
+
+		if (feed_timestamp > last_updated) {
+
+			// Update the feed because it is more recent
+			self.getLatestFeed(eid, feed_timestamp)
+
+		} else {
+
+			// The feed has not been updated. Process any other electorates that need processing
+			self.nextFeed()
+		}
+
+	}
+
+	nextFeed() {
+
+		var self = this
+
+		if (self.currentPosition < this.extremePosition) {
+			self.currentPosition = self.currentPosition + 1
+			self.processFeed()
+		} else {
+			self.loadGoogledoc()
+		}
+
+	}
+
+	loadGoogledoc() {
+
+		var self = this
+
+		xr.get('https://interactive.guim.co.uk/docsdata/1wZXnPwxMfwjNvIYTm2PLbKWooyLLJifHImD71P8KsM8.json').then((resp) => {
+
+           	if (resp.status === 200) {
+
+           		self.results = resp.data.sheets.national
+
+           		var byelection = new Seatstack("#byelection", self.results, "Byelection_outcome", "Unknown")
+
+           		self.ractivateElectorates()
+           		
+           	}
+
+		});
+
+	}
+
+    getLatestFeed(eid, timestamp) {
+
+    	var self = this
+
+        xr.get('https://interactive.guim.co.uk/2018/07/aus-byelections/' + eid + '-' + timestamp + '.json').then((resp) => {
+
+           	if (resp.status === 200) {
+
+           		self.update(resp.data.divisions[0], timestamp);
+
+           	} else {
+           		// Something went wrong
+           		self.nextFeed()
+           	}
+
+        });
+    }
+
+    update(json, timestamp) {
+
+    	var self = this
+
+    	var candidates = json.candidates
+
+		var electorate = self.data.find( (item) => {
+
+		    return item.electorate === json.name
+
+		});
+
+		electorate.counted = json.votesCounted
+
+		electorate.timestamp = json.timestamp
+
+		electorate.candidates.forEach( (value, index) => {
+
+			var candidate = candidates.find( (item) => {
+
+			    return item.candidate_id === parseInt(value.cid)
+
+			});
+
+			value.percentage = candidate.votesPercent
+
+			value.votes = candidate.votesTotal
+
+		});
+
+		this.renderTable()
+
+		this.renderElectorates()
+
+		this.updated()
+
+		this.nextFeed()
+
+    }
 
 	ractivateTable() {
 
@@ -96,8 +225,6 @@ export class election {
 	ractivateElectorates() {
 
 		var self = this
-
-		this.renderElectorates();
 
 		if (this.status === 'TRUE') {
 
