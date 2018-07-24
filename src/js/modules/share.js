@@ -1,5 +1,4 @@
 const twitterBaseUrl = 'https://twitter.com/intent/tweet?text=';
-//const facebookBaseUrl = 'https://www.facebook.com/dialog/feed?display=popup&app_id=741666719251986&redirect_uri=http://www.theguardian.com&link=';
 const googleBaseUrl = 'https://plus.google.com/share?url=';
 
 export default function share(title, shareURL, fbImg, twImg, hashTag, FBmessage='') {
@@ -16,18 +15,34 @@ export default function share(title, shareURL, fbImg, twImg, hashTag, FBmessage=
             shareWindow = googleBaseUrl + shareURL;
         }
 
-        var FBparams = {
-          method: 'feed',
-          link: shareURL,
-          name: title,
-          image: fbImg,
-          description: FBmessage
-        };
-
         if (network != 'facebook') {
             window.open(shareWindow, network + 'share', 'width=640,height=320');
         } else {
-            FB.ui(FBparams, function(response) {});
+
+          if (FB) { //http://drib.tech/programming/dynamically-change-facebook-open-graph-meta-data-javascript
+
+            console.log("Initiated Facebook dynamic share stuff")
+
+            FB.ui({
+              method: 'share_open_graph',
+              action_type: 'og.likes',
+              action_properties: JSON.stringify({
+                object: {
+                  'og:url': shareURL,
+                  'og:title': title,
+                  'og:description': FBmessage,
+                  'og:image': fbImg
+                }
+              })
+            },
+            function (response) {
+            // Action after response
+              console.log("Facebook share stuff worked")
+            });
+
+
+          }
+
         }
         
     }

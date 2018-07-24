@@ -3,12 +3,15 @@ var el = document.createElement('script');
 el.src = '<%= path %>/app.js';
 document.body.appendChild(el);
 
+
 window.fbAsyncInit = function() {
     FB.init({
-        appId: '741666719251986',
-        xfbml: true,
-        version: 'v2.1'
+      appId            : '741666719251986',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.10'
     });
+    FB.AppEvents.logPageView();
 };
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -20,3 +23,5 @@ window.fbAsyncInit = function() {
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+

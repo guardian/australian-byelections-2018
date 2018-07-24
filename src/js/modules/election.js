@@ -27,7 +27,7 @@ export class election {
 
 		this.results = googledoc.national
 
-		//this.status = 'TRUE' // TESTING
+		// this.status = 'TRUE' // TESTING
 
 		this.pathfinder()
 
@@ -168,7 +168,7 @@ export class election {
 
     	var self = this
 
-		let sharegeneral = share("Super Saturday: Australian byelection guide", self.getShareUrl(), 'https://media.guim.co.uk/03347e815d0d46f0aa7c8d27da41dc98e0a46d39/0_34_2303_1382/2303.jpg', '', '#AUSPOL');
+		let sharegeneral = share("Super Saturday: Australian byelection guide", self.getShareUrl(), 'https://media.guim.co.uk/03347e815d0d46f0aa7c8d27da41dc98e0a46d39/0_34_2303_1382/2303.jpg', '', '#AUSPOL', 'Five electorates are up for grabs in this year’s byelections, the first major test of public opinion since the 2016 election. This page will be updated with live results on 28 July 2018');
 
 		let social = document.getElementsByClassName("interactive-share")
 
