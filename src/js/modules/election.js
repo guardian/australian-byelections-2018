@@ -75,6 +75,7 @@ export class election {
            		self.state = resp.data;
 
            		self.recombinator()
+
            	}
 
         });
@@ -178,7 +179,7 @@ export class election {
 
 		});
 
-		electorate.counted = json.votesCounted
+		electorate.counted = Math.round( ( parseInt(json.votesCounted) / parseInt(json.enrollment) * 100 ) * 10 ) / 10
 
 		electorate.timestamp = json.timestamp
 
