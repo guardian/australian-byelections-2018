@@ -56,7 +56,7 @@ export class election {
 
 			this.fetchFeedUpdateInfo()
 
-			window.setInterval(() => this.fetchFeedUpdateInfo(), 60000);
+			window.setInterval(() => this.fetchFeedUpdateInfo(), 30000);
 
 		}
 
@@ -68,7 +68,7 @@ export class election {
 
     	var self = this
 
-        xr.get('https://interactive.guim.co.uk/2018/07/aus-byelections/recentResults.json').then((resp) => {
+        xr.get('https://interactive.guim.co.uk/2018/07/aus-byelections/recentResults.json?t=' + new Date().getTime()).then((resp) => {
 
            	if (resp.status === 200) {
 
@@ -133,6 +133,12 @@ export class election {
 
 		var self = this
 
+		// Live https://interactive.guim.co.uk/docsdata/1wZXnPwxMfwjNvIYTm2PLbKWooyLLJifHImD71P8KsM8.json
+
+		// Test https://interactive.guim.co.uk/docsdata/1E-EnAF3_GxErRCW1aiyaubKU7LClcUih5q93dSg2NMA.json
+
+		console.log("Checking googledoc")
+
 		xr.get('https://interactive.guim.co.uk/docsdata/1wZXnPwxMfwjNvIYTm2PLbKWooyLLJifHImD71P8KsM8.json').then((resp) => {
 
            	if (resp.status === 200) {
@@ -142,10 +148,36 @@ export class election {
            		var byelection = new Seatstack("#byelection", self.results, "Byelection_outcome", "Unknown")
 
            		self.ractivateElectorates()
+
+           		self.updatePredictions()
            		
            	}
 
 		});
+
+	}
+
+	updatePredictions() {
+
+		var self = this
+
+		self.data.forEach( (value, index) => {
+
+			var target = self.results.find( (item) => {
+
+		    	return item.Electorate === value.electorate
+
+			});
+
+			value.prediction = target.Byelection_outcome
+
+		});
+
+		self.renderTable()
+
+		self.renderElectorates()
+
+		self.ractivateElectorates()
 
 	}
 
@@ -252,6 +284,16 @@ export class election {
 				polity: self.data,
 				shortify: function(party) {
 					return party.replace(/[ .,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
+				},			
+				partify: function(party) {
+					return (party === 'ALP' || party === 'Labor') ? 'Labor' :
+					(party === 'Unknown') ? 'Unknown' :
+					(party === 'XEN' || party === 'NXT' || party === 'CA' || party === 'Centre Alliance') ? 'Centre Alliance' :
+					(party === 'LIB') ? 'Liberal' :
+					(party === 'PHON' || party === 'ONP') ? 'One Nation' :
+					(party === 'GRN' || party === 'The Greens') ? 'The Greens' : 
+					(party === 'LNP' || party === 'Liberal National') ? 'Liberal National' : 
+					(party === 'LDP' || party === 'Liberal Democrats') ? 'Liberal Democrats' : 'Independent'
 				}
 			}
 		});
@@ -271,6 +313,16 @@ export class election {
 				},
 				classify: function() {
 					return (self.status === 'TRUE') ? '' : ' hide' ;
+				},
+				partify: function(party) {
+					return (party === 'ALP' || party === 'Labor') ? 'Labor' :
+					(party === 'Unknown') ? 'Unknown' :
+					(party === 'XEN' || party === 'NXT' || party === 'CA' || party === 'Centre Alliance') ? 'Centre Alliance' :
+					(party === 'LIB') ? 'Liberal' :
+					(party === 'PHON' || party === 'ONP') ? 'One Nation' :
+					(party === 'GRN' || party === 'The Greens') ? 'The Greens' : 
+					(party === 'LNP' || party === 'Liberal National') ? 'Liberal National' : 
+					(party === 'LDP' || party === 'Liberal Democrats') ? 'Liberal Democrats' : 'Independent'
 				}
 			}
 		});

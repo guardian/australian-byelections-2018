@@ -103,6 +103,14 @@
   "politicalization": "left",
   "colours": ""
 }, {
+  "partyCode": "CA",
+  "shortName": "Xenophon",
+  "partyName": "Centre Alliance",
+  "coalition": "",
+  "libCoalition": "",
+  "politicalization": "left",
+  "colours": ""
+}, {
   "partyCode": "ONP",
   "shortName": "Hanson",
   "partyName": "Pauline Hanson's One Nation",
@@ -111,6 +119,14 @@
   "politicalization": "right",
   "colours": ""
 }, {
+  "partyCode": "PHON",
+  "shortName": "Hanson",
+  "partyName": "Pauline Hanson's One Nation",
+  "coalition": "",
+  "libCoalition": "",
+  "politicalization": "right",
+  "colours": ""
+},{
   "partyCode": "JLN",
   "shortName": "Lambie",
   "partyName": "Jacqui Lambie Network",

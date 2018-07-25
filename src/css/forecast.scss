@@ -24,13 +24,34 @@
 	font-weight: 800;
 }
 
-.forecast_block span.labor {
+.forecast_block span.labor, .forecast_block span.alp {
 	background-color: #b51800;
 }
 
-.forecast_block span.centrealliance {
+.forecast_block span.centrealliance, .forecast_block span.ca, .forecast_block span.xen, .forecast_block span.nxt {
 	background-color: #e6711b;
 }
+
+.forecast_block span.grn, .forecast_block span.thegreens {
+	background-color: #298422;
+}
+
+.forecast_block span.lnp, .forecast_block span.liberalnational {
+	background-color: #075e91;
+}
+
+.forecast_block span.lib, .forecast_block span.liberal {
+	background-color: #005689;
+}
+
+.forecast_block span.ldp, .forecast_block span.liberaldemocrats {
+	background-color: #005689;
+}
+
+.forecast_block span.phon, .forecast_block span.onp {
+	background-color: #6e191d;
+}
+
 
 .forecast_block span.unknown {
 	background-color: #959595;
