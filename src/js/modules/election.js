@@ -139,7 +139,7 @@ export class election {
 
 		console.log("Checking googledoc")
 
-		xr.get('https://interactive.guim.co.uk/docsdata/1wZXnPwxMfwjNvIYTm2PLbKWooyLLJifHImD71P8KsM8.json').then((resp) => {
+		xr.get('https://interactive.guim.co.uk/docsdata/1wZXnPwxMfwjNvIYTm2PLbKWooyLLJifHImD71P8KsM8.json?t=' + new Date().getTime()).then((resp) => {
 
            	if (resp.status === 200) {
 
