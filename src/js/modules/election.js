@@ -36,8 +36,6 @@ export class election {
 
 		this.results = googledoc.national
 
-		//this.status = 'TRUE' // TESTING
-
 		this.pathfinder()
 
 	}

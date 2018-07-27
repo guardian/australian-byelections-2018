@@ -48,8 +48,9 @@ $partyColors: (
 [data-partyname='ca'] { background-color: #e6711b; color: #e6711b; }
 [data-partyname='xen'] { background-color: #e6711b; color: #e6711b; }
 [data-partyname='other'] { background-color: #b3b3b3; color: #b3b3b3; }
-[data-partyname='onp'] { background-color: #ff9b0b; color: #ff9b0b; }
+[data-partyname='onp'] { background-color: #6e191d; color: #6e191d; }
 [data-partyname='phon'] { background-color: #6e191d; color: #6e191d; }
+[data-partyname='und'] { background-color: #ddd; color: #ddd; }
 
 $arrowColorOverrides: (
     ld:  #ff920d,
@@ -503,7 +504,7 @@ $seatstack-list-lineheight: 24px;
     color: #a9a9aa;
     font-weight: 200;
     font-size: 14px;
-    line-height: 20px;
+    line-height: 40px;
     font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
