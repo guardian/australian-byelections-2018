@@ -122,9 +122,9 @@ export class Seatstack {
         data: { 
           partyData: self.partyData,
           electionSelection: function(num) {
-            console.log(num)
+            // console.log(num)
             let width = Math.floor(((num / 150) * 100 ).toFixed(2) * 100) / 100
-            console.log(width)
+            // console.log(width)
             return (width < 1) ? 0.66 : width ;
           },
           seatDisplay: function(num) {

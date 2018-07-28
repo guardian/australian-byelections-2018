@@ -79,6 +79,14 @@
             .bg-color--ld {
             	background-color: #FFB900 !important
             }
+
+            #notes {margin: 0;
+                  font-size: 12px;
+                  line-height: 16px;
+                  font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+                  color: #bdbdbd;
+                  margin-top: 3px}      
+
             .fill-color--ld {
             	fill: #FFB900 !important
             }
@@ -402,7 +410,7 @@
             	color: #E31F26;
             	text-decoration: underline;
             	padding-top: 12px;
-            	display: inline-block
+            	/*display: inline-block*/
             }
             .interactive-atom .header-headline {
             	font-family: "Guardian Headline", "Guardian Egyptian Web", Georgia, serif;

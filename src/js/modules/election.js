@@ -65,7 +65,7 @@ export class election {
     fetchFeedUpdateInfo() {
 
     	var self = this
-
+    	console.log("getting updates")
         xr.get('https://interactive.guim.co.uk/2018/07/aus-byelections/recentResults.json?t=' + new Date().getTime()).then((resp) => {
 
            	if (resp.status === 200) {
@@ -101,16 +101,17 @@ export class election {
 
 		var feed_timestamp = parseInt(self.state[eid][0])
 
-		if (feed_timestamp > last_updated) {
+		self.getLatestFeed(eid, feed_timestamp)
+		
+		// if (feed_timestamp > last_updated) {
+		// 	// Update the feed because it is more recent
+		// 	self.getLatestFeed(eid, feed_timestamp)
 
-			// Update the feed because it is more recent
-			self.getLatestFeed(eid, feed_timestamp)
+		// } else {
 
-		} else {
-
-			// The feed has not been updated. Process any other electorates that need processing
-			self.nextFeed()
-		}
+		// 	// The feed has not been updated. Process any other electorates that need processing
+		// 	self.nextFeed()
+		// }
 
 	}
 
@@ -199,6 +200,7 @@ export class election {
 
     update(json, timestamp) {
 
+    	console.log("updating")
     	var self = this
 
     	var candidates = json.candidates
