@@ -16,7 +16,7 @@ export class election {
 		this.data = googledoc.mainData
 
 		this.status = googledoc.settings[0].counting
-
+		// this.status = 'TRUE'
 		this.state = []
 
 		this.data.forEach(function(item, index) {
